@@ -28,6 +28,37 @@ int main(int argc, char *argv[])
         qDebug() << "Elasped time in ms: " << elaspedTime;
     }
 
+    // Benchmark of heap access
+    {
+        Dummy *dummyArray[ITEM_NUMBER];
+
+        for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+        {
+            dummyArray[idx] = new Dummy;
+        }
+
+        QTime time;
+        int elaspedTime = 0;
+
+        time.start();
+        for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
+        {
+            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            {
+                dummyArray[idx]->increase();
+            }
+        }
+        elaspedTime = time.elapsed();
+
+        qDebug() << "Heap benchmark";
+        qDebug() << "Elasped time in ms: " << elaspedTime;
+        for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+        {
+            delete dummyArray[idx];
+        }
+    }
+
+
 
     // Benchmark of shared pointer access
     {
