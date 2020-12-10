@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
         const auto ti = now();
         for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
         {
-            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            for (auto & elm : dummyArray)
             {
-                dummyArray[idx].increase();
+                elm.increase();
             }
         }
         const auto tf = now();
@@ -35,17 +35,17 @@ int main(int argc, char *argv[])
         const auto ti = now();
         for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
         {
-            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            for (auto & elm : dummyArray)
             {
-                dummyArray[idx]->increase();
+                elm->increase();
             }
         }
         const auto tf = now();
         std::cout << "Heap benchmark using raw pointer\n";
         print_duration(ti, tf, ITERATION_NUMBER);
-        for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+        for (auto & elm : dummyArray)
         {
-            delete dummyArray[idx];
+            delete elm;
         }
     }
 
@@ -63,9 +63,9 @@ int main(int argc, char *argv[])
         const auto ti = now();
         for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
         {
-            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            for (auto & elm : dummyArray)
             {
-                dummyArray[idx]->increase();
+                elm->increase();
             }
         }
         const auto tf = now();
@@ -84,9 +84,9 @@ int main(int argc, char *argv[])
         const auto ti = now();
         for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
         {
-            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            for (auto & elm : dummyArray)
             {
-                dummyArray[idx]->increase();
+                elm->increase();
             }
         }
         const auto tf = now();
