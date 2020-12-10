@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
             }
         }
         const auto tf = now();
-        std::cout << "Heap benchmark\n";
+        std::cout << "Heap benchmark using raw pointer\n";
         print_duration(ti, tf);
         for (int idx = 0; idx < ITEM_NUMBER; ++idx)
         {
