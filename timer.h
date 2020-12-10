@@ -12,6 +12,13 @@ auto to_ms(const time_point<high_resolution_clock> ti, const time_point<high_res
     return duration_cast<milliseconds>(tf-ti).count();
 }
 
-auto print_duration(const time_point<high_resolution_clock> ti, const time_point<high_resolution_clock> tf) {
-    std::cout << "Elasped time: " << to_ms(ti, tf) << " ms\n";
+auto to_us(const time_point<high_resolution_clock> ti, const time_point<high_resolution_clock> tf) {
+    return duration_cast<microseconds>(tf-ti).count();
+}
+
+auto print_duration(const time_point<high_resolution_clock> ti, const time_point<high_resolution_clock> tf, const int iterations_number = 1) {
+    std::cout
+        << "Elasped time: "
+        << to_us(ti, tf)
+        << " us\n";
 }
