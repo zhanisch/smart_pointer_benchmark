@@ -3,7 +3,7 @@
 #include "timer.h"
 
 const auto ITEM_NUMBER = 10000;
-const auto ITERATION_NUMBER = 1000;
+const auto ITERATION_NUMBER = 100000;
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
         }
         const auto tf = now();
         std::cout << "Stack benchmark\n";
-        print_duration(ti, tf);
+        print_duration(ti, tf, ITERATION_NUMBER);
     }
 
     // Benchmark of heap access
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
         }
         const auto tf = now();
         std::cout << "Heap benchmark using raw pointer\n";
-        print_duration(ti, tf);
+        print_duration(ti, tf, ITERATION_NUMBER);
         for (int idx = 0; idx < ITEM_NUMBER; ++idx)
         {
             delete dummyArray[idx];
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
         }
         const auto tf = now();
         std::cout << "Shared pointer benchmark\n";
-        print_duration(ti, tf);
+        print_duration(ti, tf, ITERATION_NUMBER);
     }
 
     // Benchmark of unique pointer access
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
         }
         const auto tf = now();
         std::cout << "Unique pointer benchmark\n";
-        print_duration(ti, tf);
+        print_duration(ti, tf, ITERATION_NUMBER);
     }
 
     return 0;
