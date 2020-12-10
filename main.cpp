@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         std::unique_ptr<Dummy> dummyArray[ITEM_NUMBER];
         for (int idx = 0; idx < ITEM_NUMBER; ++idx)
         {
-            dummyArray[idx].reset(new Dummy);
+            dummyArray[idx] = std::make_unique<Dummy>();
         }
 
         const auto ti = now();
