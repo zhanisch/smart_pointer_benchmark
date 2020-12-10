@@ -13,7 +13,10 @@ SOURCES += main.cpp \
 HEADERS += \
     Dummy.h
 
-CONFIG += c++11
+HEADERS += \
+    timer.h
 
-QMAKE_CXXFLAGS += -O0
+CONFIG += c++17
+
+QMAKE_CXXFLAGS += -O3
 

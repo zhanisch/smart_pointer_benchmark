@@ -1,31 +1,26 @@
 #include <memory>
 #include "Dummy.h"
-#include <QTime>
-#include <QDebug>
+#include "timer.h"
 
-const int ITEM_NUMBER = 1000000;
-const int ITERATION_NUMBER = 1000;
+const auto ITEM_NUMBER = 10000;
+const auto ITERATION_NUMBER = 100000;
 
 int main(int argc, char *argv[])
 {
     // Benchmark of stack access
     {
         Dummy dummyArray[ITEM_NUMBER];
-        QTime time;
-        int elaspedTime = 0;
-
-        time.start();
+        const auto ti = now();
         for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
         {
-            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            for (auto & elm : dummyArray)
             {
-                dummyArray[idx].increase();
+                elm.increase();
             }
         }
-        elaspedTime = time.elapsed();
-
-        qDebug() << "Stack benchmark";
-        qDebug() << "Elasped time in ms: " << elaspedTime;
+        const auto tf = now();
+        std::cout << "Stack benchmark\n";
+        print_duration(ti, tf, ITERATION_NUMBER);
     }
 
     // Benchmark of heap access
@@ -37,24 +32,20 @@ int main(int argc, char *argv[])
             dummyArray[idx] = new Dummy;
         }
 
-        QTime time;
-        int elaspedTime = 0;
-
-        time.start();
+        const auto ti = now();
         for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
         {
-            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            for (auto & elm : dummyArray)
             {
-                dummyArray[idx]->increase();
+                elm->increase();
             }
         }
-        elaspedTime = time.elapsed();
-
-        qDebug() << "Heap benchmark";
-        qDebug() << "Elasped time in ms: " << elaspedTime;
-        for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+        const auto tf = now();
+        std::cout << "Heap benchmark using raw pointer\n";
+        print_duration(ti, tf, ITERATION_NUMBER);
+        for (auto & elm : dummyArray)
         {
-            delete dummyArray[idx];
+            delete elm;
         }
     }
 
@@ -69,21 +60,17 @@ int main(int argc, char *argv[])
             dummyArray[idx] = std::make_shared<Dummy>();
         }
 
-        QTime time;
-        int elaspedTime = 0;
-
-        time.start();
+        const auto ti = now();
         for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
         {
-            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            for (auto & elm : dummyArray)
             {
-                dummyArray[idx]->increase();
+                elm->increase();
             }
         }
-        elaspedTime = time.elapsed();
-
-        qDebug() << "Shared pointer benchmark";
-        qDebug() << "Elasped time in ms: " << elaspedTime;
+        const auto tf = now();
+        std::cout << "Shared pointer benchmark\n";
+        print_duration(ti, tf, ITERATION_NUMBER);
     }
 
     // Benchmark of unique pointer access
@@ -91,24 +78,20 @@ int main(int argc, char *argv[])
         std::unique_ptr<Dummy> dummyArray[ITEM_NUMBER];
         for (int idx = 0; idx < ITEM_NUMBER; ++idx)
         {
-            dummyArray[idx].reset(new Dummy);
+            dummyArray[idx] = std::make_unique<Dummy>();
         }
 
-        QTime time;
-        int elaspedTime = 0;
-
-        time.start();
+        const auto ti = now();
         for (int itr = 0; itr < ITERATION_NUMBER; ++itr)
         {
-            for (int idx = 0; idx < ITEM_NUMBER; ++idx)
+            for (auto & elm : dummyArray)
             {
-                dummyArray[idx]->increase();
+                elm->increase();
             }
         }
-        elaspedTime = time.elapsed();
-
-        qDebug() << "Unique pointer benchmark";
-        qDebug() << "Elasped time in ms: " << elaspedTime;
+        const auto tf = now();
+        std::cout << "Unique pointer benchmark\n";
+        print_duration(ti, tf, ITERATION_NUMBER);
     }
 
     return 0;
