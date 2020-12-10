@@ -2,8 +2,8 @@
 #include "Dummy.h"
 #include "timer.h"
 
-const int ITEM_NUMBER = 1000000;
-const int ITERATION_NUMBER = 1000;
+const auto ITEM_NUMBER = 10000;
+const auto ITERATION_NUMBER = 1000;
 
 int main(int argc, char *argv[])
 {
